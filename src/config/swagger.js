@@ -8,7 +8,7 @@ const options = {
       version: "1.0.0",
       description: "Documentacion de endpoints.",
     },
-    servers: [{ url: "http://localhost:3000" }],
+    servers: [{ url: "/" }],
     components: {
       securitySchemes: {
         bearerAuth: {
