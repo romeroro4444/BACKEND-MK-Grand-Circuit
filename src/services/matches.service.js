@@ -1,5 +1,7 @@
 const supabase = require("../config/supabase");
-const { validate: isValidUUID } = require("uuid");
+const validator = require("validator");
+
+const isValidUUID = (value) => validator.isUUID(String(value || ""));
 
 const createHttpError = (statusCode, message) => {
   const error = new Error(message);
