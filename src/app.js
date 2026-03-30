@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const swaggerSpec = require("./config/swagger");
 const authRoutes = require("./routes/auth.routes");
 const teamsRoutes = require("./routes/teams.routes");
@@ -9,6 +10,40 @@ const roundsRoutes = require("./routes/rounds.routes");
 const { authenticateJWT } = require("./middlewares/auth.middleware");
 
 const app = express();
+
+const allowedOrigins = (process.env.ALLOWED_ORIGINS || "")
+  .split(",")
+  .map((origin) => origin.trim().replace(/\/$/, ""))
+  .filter(Boolean);
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin) {
+        return callback(null, true);
+      }
+
+      const normalizedOrigin = origin.endsWith("/")
+        ? origin.slice(0, -1)
+        : origin;
+
+      if (allowedOrigins.length === 0) {
+        return callback(
+          new Error("CORS no configurado: falta ALLOWED_ORIGINS"),
+        );
+      }
+
+      if (allowedOrigins.includes(normalizedOrigin)) {
+        return callback(null, true);
+      }
+
+      return callback(new Error("Origen no permitido por CORS"));
+    },
+    methods: ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "token"],
+    credentials: true,
+  }),
+);
 
 app.use(express.json());
 

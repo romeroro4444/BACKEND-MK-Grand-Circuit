@@ -22,8 +22,11 @@ SUPABASE_SERVICE_ROLE_KEY=TU_SUPABASE_SERVICE_ROLE_KEY
 JWT_SECRET=UN_SECRETO_LARGO_Y_SEGURO
 ADMIN_SETUP_KEY=CLAVE_SECRETA_PARA_REGISTER_ADMIN
 SUPABASE_STORAGE_BUCKET_TEAMS=team-assets
+ALLOWED_ORIGINS=http://localhost:3000,http://localhost:5500,http://127.0.0.1:5500
 PORT=3000
 ```
+
+`ALLOWED_ORIGINS` debe ir separado por comas y sin espacios. Si no esta configurado, las requests desde navegador se bloquearan por CORS.
 
 ## 3) Crear base de datos (SQL)
 
@@ -78,6 +81,7 @@ Pasos:
    - `JWT_SECRET`
    - `ADMIN_SETUP_KEY`
    - `SUPABASE_STORAGE_BUCKET_TEAMS`
+   - `ALLOWED_ORIGINS` (ejemplo: `https://frontend-xx-xxxxx-.vercel.app,http://localhost:3000`)
 4. Deploy.
 
 ## 7) Notas importantes
