@@ -40,7 +40,12 @@ app.use(
       return callback(new Error("Origen no permitido por CORS"));
     },
     methods: ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization", "token"],
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "token",
+      "x-admin-setup-key",
+    ],
     credentials: true,
   }),
 );
